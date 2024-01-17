@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../styke/profileeditor.css";
+import Image from 'next/image';
 const UserProfileTemplate = ({ profileImage, setProfileImage,updateUserData, userData, onChangeLeftComponent,updateUserData1 }) => {
     const [userImage, setUserImage] = useState(profileImage);
     const [newName, setNewName] = useState('');
@@ -95,10 +96,9 @@ const UserProfileTemplate = ({ profileImage, setProfileImage,updateUserData, use
         {/* Foto de perfil */}
         <div className="profile-picture-container">
           <div className="relative rounded-full overflow-hidden w-48 h-48 mx-auto mt-7">
-            <img
+            <Image
               src={userImage}
-              alt="Profile"
-              className="w-full h-full object-cover hover:cursor-pointer"
+              alt="Descripción de la imagen" width={60} height={60} 
               onClick={() => document.getElementById('profileImageInput').click()}
             />
             {/* Icono de cámara para indicar que se puede cambiar la imagen */}

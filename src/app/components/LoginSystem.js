@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { signInWithGitHub, signInWithGoogle } from '../firebase';
 import PrincipalServer from './PrincipalServer';
-
+import Image from 'next/image';
 import "../styke/login.css";
 const LoginSystem = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -207,11 +207,10 @@ const LoginSystem = () => {
           <h1 className="text-3xl font-semibold mb-6 text-center">Register</h1>
           <div className="mb-4">
               <div className="relative rounded-full overflow-hidden w-24 h-24 mx-auto mb-4">
-              <img
+              < Image
                 src={profileImage ? URL.createObjectURL(profileImage) : defaultProfileImage}
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+                alt="Descripción de la imagen" width={60} height={60} />
+              
               {/* Icono de cámara para indicar que se puede cambiar la imagen */}
               <label
                 htmlFor="profileImage"
