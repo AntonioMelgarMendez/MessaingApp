@@ -370,11 +370,9 @@ const LoginSystem = () => {
             Sign in with Google
           </button>
         </div>
-        {/* Botón de inicio de sesión */}
 
-        {/* Mensaje "Don't have an account?" */}
         <p className="mt-4 text-center text-gray-600">Don't have an account?</p>
-        {/* Enlace "Sign Up" */}
+
         <p className="text-blue-500 cursor-pointer text-center underline " onClick={handleSignUp}>
           Sign Up
         </p>
