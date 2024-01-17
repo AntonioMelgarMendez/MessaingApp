@@ -1,0 +1,25 @@
+.profile-editor {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-editor.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .fadeOut {
+    animation: fadeOut 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  }
+  
