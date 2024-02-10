@@ -209,7 +209,7 @@ const LoginSystem = () => {
               <div className="relative rounded-full overflow-hidden w-24 h-24 mx-auto mb-4">
               < Image
                 src={profileImage ? URL.createObjectURL(profileImage) : defaultProfileImage}
-                alt="Descripción de la imagen" width={60} height={60} />
+                alt="Descripción de la imagen" width={120} height={120} />
               
               {/* Icono de cámara para indicar que se puede cambiar la imagen */}
               <label

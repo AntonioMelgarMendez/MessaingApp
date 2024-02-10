@@ -99,6 +99,7 @@ const UserProfileTemplate = ({ profileImage, setProfileImage,updateUserData, use
             <Image
               src={userImage}
               alt="Descripción de la imagen" width={60} height={60} 
+              className="rounded-full object-cover w-full h-full hover:cursor-pointer"
               onClick={() => document.getElementById('profileImageInput').click()}
             />
             {/* Icono de cámara para indicar que se puede cambiar la imagen */}

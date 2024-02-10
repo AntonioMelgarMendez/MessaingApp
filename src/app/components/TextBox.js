@@ -1,24 +1,22 @@
-// components/TextBox.js
 import React, { useState, useEffect, useRef } from 'react';
 import Message from "./message";
 
-const TextBox = ({ background, initialMessages }) => {
+const TextBox = ({ background, messages: initialMessages }) => {
+  console.log('TextBox Props:', background, initialMessages);
   const { backgrounChar } = background;
   const [messages, setMessages] = useState([]);
   const messagesContainerRef = useRef(null);
 
   useEffect(() => {
+    console.log('Initial Messages Updated:', initialMessages);
     setMessages(initialMessages);
     scrollToBottom();
   }, [initialMessages]);
 
   useEffect(() => {
     scrollToBottom();
+    console.log('Messages Updated:', messages);
   }, [messages]);
-
-  const addLocalMessage = (newMessage) => {
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-  };
 
   const scrollToBottom = () => {
     if (messagesContainerRef.current) {
@@ -31,17 +29,14 @@ const TextBox = ({ background, initialMessages }) => {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     width: '100%',
-    height: '430px',
+    height: '445px',
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
   };
 
   return (
-    <div
-      ref={messagesContainerRef}
-      style={textBoxStyle}
-    >
+    <div ref={messagesContainerRef} style={textBoxStyle}>
       {messages.map((message, index) => (
         <div
           key={index}

@@ -8,7 +8,7 @@ import DefaultRight from "./defaultRight";
 import SelectedChat from "./SelectedChat";
 import Cookies from 'js-cookie'; // Importa la biblioteca js-cookie
 import ProfileEditor from "./ProfileEditor";
-
+import AddUser from './AddUser';
 
 export default function PrincipalServer({userData,updateUserData,userExists,handleLogOut}) {
   const [chatsData, setChatsData] = useState([
@@ -111,6 +111,12 @@ export default function PrincipalServer({userData,updateUserData,userExists,hand
   const [selectedChat, setSelectedChat] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
   const [showNewComponent, setShowNewComponent] = useState(false);
+  const [cargarComponente, setCargarComponente] = useState(false);
+
+  const handleCargarComponente = (value) => {
+    console.log('handleCargarComponente se llama con valor:', value);
+    setCargarComponente(value);
+  };
   // Utiliza useEffect para cargar las credenciales desde las cookies al cargar la página
   useEffect(() => {
     const storedProfileImage = Cookies.get('profileImage');
@@ -170,26 +176,41 @@ export default function PrincipalServer({userData,updateUserData,userExists,hand
   };
 
   return (
-    <div className="flex">
-          <div className="w-2/5">
-          {showNewComponent ? (
-            <ProfileEditor profileImage={userData1.backgroundImage}   setProfileImage={setProfileImage} updateUserData={updateUserData} userData={userData1} onChangeLeftComponent={handleChangeLeftComponent} updateUserData1 = {updateUserData1}/>
-          ) : (
-             <div>
-              <Navbar
-                
-                onChangeLeftComponent={handleChangeLeftComponent} 
-                setProfileImage={setProfileImage}
-                userData={userData1} 
-                handleLogOut={handleLogOut}// Pasa el userData actualizado
-              />
-              <div className='bg-white'>
-              <SearchBar />
-              </div>
-              <ChatList chats={chatsData}  onChatClick={handleChatClick} />
-             </div>
-          )}
+    <div className="flex h-full min-h-screen">
+        <div className="w-2/5">
+    {showNewComponent === true ? (
+      // Caso 1: Perfil del editor
+      <ProfileEditor
+        profileImage={userData1.backgroundImage}
+        setProfileImage={setProfileImage}
+        updateUserData={updateUserData}
+        userData={userData1}
+        onChangeLeftComponent={handleChangeLeftComponent}
+        updateUserData1={updateUserData1}
+      />
+    ) : cargarComponente === true ? (
+     <div className='bg-white w-full'>
+         <AddUser/>
+     </div>
+
+    ) : (
+      // Caso 3: Otro caso, como la visualización predeterminada
+      <div>
+        <Navbar
+          onCargarComponente={handleCargarComponente}
+          onChangeLeftComponent={handleChangeLeftComponent}
+          setProfileImage={setProfileImage}
+          userData={userData1}
+          handleLogOut={handleLogOut}
+        />
+        <div className='bg-white'>
+          <SearchBar />
         </div>
+        <ChatList chats={chatsData} onChatClick={handleChatClick} />
+      </div>
+    )}
+  </div>
+
       <div className="w-3/5 bg-whitesmoke">
         <div>
           {selectedChat ? (

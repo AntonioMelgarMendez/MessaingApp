@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Message from './message';
 const Footer = ({ onSendMessage }) => {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -21,6 +21,7 @@ const Footer = ({ onSendMessage }) => {
       
     }
   }; 
+
   return (
     <div className="flex items-center justify-between bg-whitesmoke p-2">
       {/* Icono a la izquierda */}

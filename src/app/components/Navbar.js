@@ -2,12 +2,17 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
 import React, { useState } from 'react';
-const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut }) => {
+
+const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut,onCargarComponente }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleButtonClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  const handleClick = () => {
+    // Llamar a la función proporcionada por el prop para actualizar el estado en Navbar
+    onCargarComponente(true);
+    console.log("Ñonga");
+  };
   const handleMenuItemClick = (option) => {
     // Aquí puedes manejar la lógica cuando se hace clic en una opción del menú
 
@@ -18,7 +23,14 @@ const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut 
     if (option === 'LogOut') {
       handleLogout();
     }
+    else if (option==="AddUser"){
+      AddUserFunction();
+      onCargarComponente(true);
+    }
   };
+  const AddUserFunction=()=>{
+    handleButtonClick();
+  }
   const handleLogout = () => {
     // Aquí debes agregar la lógica para cerrar sesión.
     // Puede ser una llamada a una función proporcionada por tu servidor para manejar el cierre de sesión.
@@ -92,8 +104,8 @@ const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut 
         <div className="py-2 px-4 hover:cursor-pointer  hover:bg-gray-100" onClick={() => handleMenuItemClick('Option 1')}>
           Nuevo grupo
         </div>
-        <div className="py-2 px-4 hover:cursor-pointer hover:bg-gray-100" onClick={() => handleMenuItemClick('Option 2')}>
-          Nueva comunidad
+        <div className="py-2 px-4 hover:cursor-pointer hover:bg-gray-100" onClick={() => handleMenuItemClick('AddUser')}>
+          Agregar contacto
         </div>
         <div className="py-2 px-4 hover:cursor-pointer  hover:bg-gray-100" onClick={() => handleMenuItemClick('Option 3')}>
           Mensajes destacados
@@ -117,7 +129,7 @@ const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut 
       
     </div>
   </nav>
-  );
+  );                                                                                   
  
 };
 

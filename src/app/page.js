@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import LoginSystem from './components/LoginSystem'; // Ajusta la ruta según tu estructura de archivos
 import PrincipalServer from './components/PrincipalServer'; // Ajusta la ruta según tu estructura de archivos
 import Cookies from 'js-cookie'; // Importa la biblioteca js-cookie
-import Loading from './components/loading';
+import Loading from './components/Loading';
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
@@ -23,7 +23,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+
+
+    <div >
       {isCheckingSession ? (
         // Puedes mostrar un componente de carga aquí si es necesario
         <Loading/>
