@@ -111,8 +111,25 @@ export default function PrincipalServer({userData,updateUserData,userExists,hand
   const [selectedChat, setSelectedChat] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
   const [showNewComponent, setShowNewComponent] = useState(false);
+  const [showNewComponent1, setShowNewComponent1] = useState(true);
   const [cargarComponente, setCargarComponente] = useState(false);
+  const onAddUserFunction = (newUserData) => {
+    // Crea un nuevo objeto de usuario con un ID único
+    const newUser = {
+      id: chatsData.length + 1, // Puedes usar alguna lógica específica para generar IDs únicos
+      name: newUserData.name,
+      photo: newUserData.photo, // Asegúrate de tener esta propiedad en newUserData
+      date: "Now",
+      backgrounChar: newUserData.backgroundChar, // Asegúrate de tener esta propiedad en newUserData
+      isSeen: true,
+      messages: [], // Puedes inicializar con un arreglo vacío
+      lastMessage: '',
+    };
 
+    // Añade el nuevo usuario al estado
+    setChatsData((prevChatsData) => [...prevChatsData, newUser]);
+    handleChangeLeftComponent1(false);
+  };
   const handleCargarComponente = (value) => {
     console.log('handleCargarComponente se llama con valor:', value);
     setCargarComponente(value);
@@ -146,6 +163,9 @@ export default function PrincipalServer({userData,updateUserData,userExists,hand
     console.log("CONTRASEÑA", userData1.password);
     console.log("BACKGROUND", userData1.backgroundImage);
     console.log(userExists);
+  };
+  const handleChangeLeftComponent1 = () => {
+    setShowNewComponent1(!showNewComponent1);
   };
 
   const updateChatMessages = (chatId, newMessage) => {
@@ -189,20 +209,39 @@ export default function PrincipalServer({userData,updateUserData,userExists,hand
         updateUserData1={updateUserData1}
       />
     ) : cargarComponente === true ? (
-     <div className='bg-white w-full'>
-         <AddUser/>
-     </div>
-
+<div className='bg-white w-full'>
+            {showNewComponent1 ==true ? (
+              // Muestra el menú AddUser
+              <AddUser onChangeLeftComponent={handleChangeLeftComponent1} onAddUser={onAddUserFunction}/>
+            ) : (
+              // Muestra el contenido predeterminado
+              <div>
+                <Navbar
+                  onCargarComponente={handleCargarComponente}
+                  onChangeLeftComponent={handleChangeLeftComponent}
+                  setProfileImage={setProfileImage}
+                  userData={userData1}
+                  handleLogOut={handleLogOut}
+                  changeToAdd={handleChangeLeftComponent1}
+                />
+                <div className='bg-white'>
+                  <SearchBar />
+                </div>
+                <ChatList chats={chatsData} onChatClick={handleChatClick} />
+              </div>
+            )}
+          </div>
     ) : (
       // Caso 3: Otro caso, como la visualización predeterminada
       <div>
-        <Navbar
-          onCargarComponente={handleCargarComponente}
-          onChangeLeftComponent={handleChangeLeftComponent}
-          setProfileImage={setProfileImage}
-          userData={userData1}
-          handleLogOut={handleLogOut}
-        />
+               <Navbar
+                  onCargarComponente={handleCargarComponente}
+                  onChangeLeftComponent={handleChangeLeftComponent}
+                  setProfileImage={setProfileImage}
+                  userData={userData1}
+                  handleLogOut={handleLogOut}
+                  changeToAdd={handleChangeLeftComponent1}
+                />
         <div className='bg-white'>
           <SearchBar />
         </div>

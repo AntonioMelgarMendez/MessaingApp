@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut,onCargarComponente }) => {
+const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut,onCargarComponente,changeToAdd }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleButtonClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -24,8 +24,9 @@ const Navbar = ({ onChangeLeftComponent, setProfileImage, userData,handleLogOut,
       handleLogout();
     }
     else if (option==="AddUser"){
+      console.log("addinit");
       AddUserFunction();
-      onCargarComponente(true);
+      changeToAdd(true);
     }
   };
   const AddUserFunction=()=>{

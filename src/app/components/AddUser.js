@@ -1,14 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import Image from 'next/image';
 import defaulticon from "../sources/profile.jpg";
-const AddUser = ({ onAddUser }) => {
+const AddUser = ({ onAddUser,onChangeLeftComponent }) => {
   const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
-
+  const [isVisible, setIsVisible] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const handleUserIdChange = (e) => {
     setUserId(e.target.value);
   };
+  useEffect(() => {
+    // Cuando el componente se monta, establece isVisible a true después de un breve tiempo para iniciar la animación
+    const timeout = setTimeout(() => {
+      setIsVisible(true);
+    }, 1); // Ajusta el tiempo según tus necesidades
 
+    return () => clearTimeout(timeout);
+  }, []);  // Se ejecuta solo cuando el componente se monta
+
+  const BackToNormal = () => {
+    // Agrega la clase de animación de salida al contenedor del perfil
+    setIsFadingOut(true);
+  
+    // Espera a que termine la animación y luego cambia el componente de la izquierda
+    const timeout = setTimeout(() => {
+      setIsFadingOut(false);
+      onChangeLeftComponent();
+    }, 100); // Ajusta el tiempo según tus necesidades
+  
+    return () => {
+      clearTimeout(timeout);
+      onChangeLeftComponent(); // Agrega esta línea si la animación falla por alguna razón
+    };
+  };
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
   };
@@ -28,6 +52,7 @@ const AddUser = ({ onAddUser }) => {
   };
 
   return (
+    <div className={`profile-editor ${isVisible ? 'visible' : ''} ${isFadingOut ? 'fadeOut' : ''} user-profile-template`} style={{ maxHeight: '100vh', overflowY: 'auto' }}>
     <div className="flex flex-col items-center  h-full min-h-screen">
       
       <div className="navbar w-full">
@@ -40,7 +65,7 @@ const AddUser = ({ onAddUser }) => {
                   width="24"
                   preserveAspectRatio="xMidYMid meet"
                   className="text-white h-6 w-6 mr-2 mt-12 mb-2 cursor-pointer ml-2"
-                
+                  onClick={BackToNormal}
                 >
                   <title >back</title>
                   <path
@@ -84,11 +109,12 @@ const AddUser = ({ onAddUser }) => {
         <button
           type="button"
           onClick={handleAddUser}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+          className="bg-botongreen text-white px-4 py-2 rounded-md mt-4"
         >
           Guardar
         </button>
       </form>
+    </div>
     </div>
   );
 };
